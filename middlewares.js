@@ -1,7 +1,7 @@
 
 const checkBody = (req, res, next) => {
     let { date } = req.params;
-    if (!date.includes('-')){
+    if (!date.includes('-') && !date.includes(' ') ){
         date = parseInt(date);
     }
     var timestamp = new Date(date);
