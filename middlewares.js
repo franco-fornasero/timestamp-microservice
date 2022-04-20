@@ -1,14 +1,15 @@
 
 const checkBody = (req, res, next) => {
-    const { date } = req.params;
-    var timestamp = Date.parse(date);
-    if (isNaN(timestamp) == false) {
-        req.timestamp = new Date(timestamp);
-        next();
+    let { date } = req.params;
+    if (!date.includes('-')){
+        date = parseInt(date);
     }
-    else {
+    var timestamp = new Date(date);
+    if (timestamp == 'Invalid Date') {
         return res.send({ error : "Invalid Date" });
     }
+    req.timestamp = timestamp;
+    next();
 }
 
 const buildResponse = (req, res, next) => {
